@@ -1,0 +1,99 @@
+@(topTen: List[(String, Int)],bottomTen: List[(String, Int)],commonRunways: List[String],runwayTypes : Map[String, Set[String]])
+
+
+@style(asset: String) = {
+  <link rel="stylesheet" href="@routes.Assets.at(asset)">
+}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Àirports</title>  
+  </head>
+  	<body> 
+  	
+  	<strong>---------------------------Top Ten Airports---------------------------</strong>  
+    	<table class="table table-hover" border = "1">
+			<tr>
+				<th>
+					<strong>Country</strong>
+				</th>
+				<th>
+					<strong>Count</strong>
+				</th>
+			</tr>	
+  				@for(topCount <- topTen) {
+    				<tr>
+      					<td>
+        					@topCount._1<br>
+      					</td>
+      					<td>
+      						@topCount._2<br>
+      					</td>
+    				</tr>
+  					}
+		</table>
+		<br>
+	<strong>---------------------------Bottom Ten Airports---------------------------</strong>
+		<table class="table table-hover" border = "1">
+			<tr>
+				<th>
+					<strong>Country</strong>
+				</th>
+				<th>
+					<strong>Count</strong>
+				</th>
+			</tr>	
+  				@for(bottomCount <- bottomTen) {
+    				<tr>
+      					<td>
+        					@bottomCount._1<br>
+      					</td>
+      					<td>
+      						@bottomCount._2<br>
+      					</td>
+    				</tr>
+  					}
+		</table>
+		<br>
+	<strong>---------------------------Most Common Runways---------------------------</strong>
+		<table class="table table-hover" border = "1">
+			<tr>
+				<th>
+					<strong>Top 10 most common runway latitude</strong>
+				</th>
+			</tr>	
+  				@for(runway <- commonRunways) {
+    				<tr>
+      					<td>
+        					@runway<br>
+      					</td>
+    				</tr>
+  					}
+		</table>
+		<br>
+	<strong>---------------------------Countries with Types Of Runways---------------------------</strong>
+		<table class="table table-hover" border = "1">
+			<tr>
+				<th>
+					<strong>Country</strong>
+				</th>
+				<th>
+					<strong>Types of runways</strong>
+				</th>
+			</tr>	
+  				@for(types <- runwayTypes) {
+    		<tr>
+      			<td>
+        			@types._1<br>
+      			</td>
+      			<td>
+      				@for(runway <- types._2){
+      				@runway &nbsp
+      				}
+      			</td>
+    		</tr>
+  				}
+		</table>
+  </body>
+</html>

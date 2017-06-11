@@ -1,0 +1,73 @@
+@(airports:List[AirportAndRunways])
+
+@style(asset: String) = {
+  <link rel="stylesheet" href="@routes.Assets.at(asset)">
+}
+<script type="text/javascript">
+    function ShowHideDiv() {
+        var chkQuery = document.getElementById("chkQuery");
+        var QueryInput = document.getElementById("QueryInput");
+        var submitbtn = document.getElementById("submitbtn");
+        QueryInput.style.display = chkQuery.checked ? "block" : "none";
+        submitbtn.style.display = chkQuery.checked ? "block" : "none";
+    }
+    function submitMethod() {
+        document.getElementById("reportForm").submit()
+    }
+</script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Àirports</title>
+  	</head>
+  		<body>
+  <table>
+    <form id="queryForm" action="@routes.QueryWithReport.query()" method="GET">
+    <tr>	<td>	<span><strong>LUNATECH WEB APPLICATION </strong></span> <br>	</td>	</tr>
+    <tr>	<td>	<span>Select an Option: </span> <br>	</td>	</tr>
+    <tr>
+    	<td>
+			<label for="chkQuery">
+		    <input type="radio" id="chkQuery" name="chkQuery" onclick="ShowHideDiv()" />
+		    Query
+			</label>
+		</td>
+		<td>
+			<table>
+				<tr>
+					<td>
+			<input type="text" id="QueryInput" name="input" style="display: none">
+					</td>
+					<td>
+    		<button type="submit" id="submitbtn" style="display: none" >Search</button>
+    				</td>
+    			</tr>
+    		</table>
+    	</td>
+    </tr>
+	</form>
+	
+	<form id="reportForm" action="@routes.QueryWithReport.report" method="GET">
+		<tr>
+			<td>
+				<label for="chkReport">
+    				<input type="radio" id="chkReport" name="chkReport" onclick= "submitMethod()" />  
+    				Report
+				</label>
+			</td>
+		</tr>	
+  </form>   
+  </table >
+  
+  <table style="width:100%" border="1">
+
+@for(airport <- airports) {
+	<tr>
+	
+        <td>@airport.country</td> <td>@airport.airportName</td><td > @airport.runways</td> 
+    </tr>
+  }
+  </table>
+ 
+  </body>
+</html>
